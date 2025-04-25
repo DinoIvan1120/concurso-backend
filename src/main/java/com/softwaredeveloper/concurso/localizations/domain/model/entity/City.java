@@ -1,10 +1,9 @@
-package com.softwaredeveloper.concurso.domain.entity;
+package com.softwaredeveloper.concurso.localizations.domain.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softwaredeveloper.concurso.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.io.Serializable;
 
 @Data
 @Table(name = "cities")

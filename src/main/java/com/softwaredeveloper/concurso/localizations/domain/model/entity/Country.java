@@ -1,5 +1,6 @@
-package com.softwaredeveloper.concurso.domain.entity;
+package com.softwaredeveloper.concurso.localizations.domain.model.entity;
 
+import com.softwaredeveloper.concurso.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.Data;
 

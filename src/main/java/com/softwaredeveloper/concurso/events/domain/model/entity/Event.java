@@ -1,6 +1,7 @@
-package com.softwaredeveloper.concurso.domain.entity;
+package com.softwaredeveloper.concurso.events.domain.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.softwaredeveloper.concurso.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

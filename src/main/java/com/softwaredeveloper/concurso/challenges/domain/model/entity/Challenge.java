@@ -1,6 +1,7 @@
-package com.softwaredeveloper.concurso.domain.entity;
+package com.softwaredeveloper.concurso.challenges.domain.model.entity;
 
 
+import com.softwaredeveloper.concurso.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

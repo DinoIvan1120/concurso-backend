@@ -1,6 +1,12 @@
-package com.softwaredeveloper.concurso.domain.entity;
+package com.softwaredeveloper.concurso.inscriptions.domain.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softwaredeveloper.concurso.challenges.domain.model.entity.Solution;
+import com.softwaredeveloper.concurso.events.domain.model.entity.Event;
+import com.softwaredeveloper.concurso.events.domain.model.entity.EventTeam;
+import com.softwaredeveloper.concurso.events.domain.model.entity.EventUniversity;
+import com.softwaredeveloper.concurso.shared.domain.model.AuditModel;
+import com.softwaredeveloper.concurso.teams.domain.model.entity.Team;
 import jakarta.persistence.*;
 import lombok.Data;
 
