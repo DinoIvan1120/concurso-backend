@@ -1,18 +1,15 @@
 package com.softwaredeveloper.concurso.localizations.service;
 
 import com.softwaredeveloper.concurso.localizations.domain.model.entity.City;
-import com.softwaredeveloper.concurso.localizations.domain.model.entity.Country;
 import com.softwaredeveloper.concurso.localizations.domain.persistence.CityRepository;
 import com.softwaredeveloper.concurso.localizations.domain.persistence.CountryRepository;
 import com.softwaredeveloper.concurso.localizations.domain.service.CityService;
-import com.softwaredeveloper.concurso.localizations.domain.service.CountryService;
-import com.softwaredeveloper.concurso.localizations.dto.CityResource;
-import com.softwaredeveloper.concurso.localizations.dto.CreateCityResource;
-import com.softwaredeveloper.concurso.localizations.mapping.CityMapper;
 import com.softwaredeveloper.concurso.shared.exception.ResourceNotFoundException;
 import com.softwaredeveloper.concurso.shared.exception.ResourceValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +24,15 @@ public class CityServiceImpl implements CityService {
     private static final String ENTITY_NAME = "City";
     private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
-    private final CityMapper mapper;
+
+    private static final Logger log = LoggerFactory.getLogger(CityServiceImpl.class);
 
     private final Validator validator;
 
-    public CityServiceImpl(CityRepository repository, Validator validator, CountryRepository countryRepository, CityMapper mapper) {
+    public CityServiceImpl(CityRepository repository, Validator validator, CountryRepository countryRepository) {
         this.cityRepository = repository;
         this.validator = validator;
         this.countryRepository = countryRepository;
-        this.mapper = mapper;
 
     }
 
@@ -58,28 +55,30 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public CityResource create(CreateCityResource resource) {
+    public City create(City city, Long countryId) {
 
-        City city = mapper.toModel(resource);
 
-        Set<ConstraintViolation<CreateCityResource>> violations = validator.validate(resource);
+        Set<ConstraintViolation<City>> violations = validator.validate(city);
 
-        if(!violations.isEmpty()) {
-            throw new ResourceValidationException(ENTITY_NAME,violations);
+        if (!violations.isEmpty()) {
+            throw new ResourceValidationException(ENTITY_NAME, violations);
         }
-        try {
-            Country country = countryRepository.findById(resource.getCountryId())
-                    .orElseThrow(() -> new ResourceNotFoundException(( "Country not fount" + resource.getCountryId())));
-            city.setCountry(country);
-            city = cityRepository.save(city);
-            return mapper.toResource(city);
-        }catch (Exception e) {
-            throw new ResourceNotFoundException(ENTITY_NAME,e);
-        }
+
+
+        var country = countryRepository.findById(countryId).orElseThrow(() -> new ResourceNotFoundException(ENTITY_NAME, countryId));
+
+       try{
+
+           city.setCountry(country);
+           return cityRepository.save(city);
+       }catch (Exception e) {
+           throw new ResourceValidationException(ENTITY_NAME, e);
+       }
     }
 
+
     @Override
-    public City update(Long cityId, City request) {
+    public City update(City request, Long cityId) {
         Set<ConstraintViolation<City>> violations = validator.validate(request);
 
         if(!violations.isEmpty()) {

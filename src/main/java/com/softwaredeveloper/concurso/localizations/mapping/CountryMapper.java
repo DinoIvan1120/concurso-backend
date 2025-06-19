@@ -1,9 +1,9 @@
 package com.softwaredeveloper.concurso.localizations.mapping;
 
 import com.softwaredeveloper.concurso.localizations.domain.model.entity.Country;
-import com.softwaredeveloper.concurso.localizations.dto.CountryResource;
-import com.softwaredeveloper.concurso.localizations.dto.CreateCountryResource;
-import com.softwaredeveloper.concurso.localizations.dto.UpdateCountryResource;
+import com.softwaredeveloper.concurso.localizations.dto.country.CountryResource;
+import com.softwaredeveloper.concurso.localizations.dto.country.CreateCountryResource;
+import com.softwaredeveloper.concurso.localizations.dto.country.UpdateCountryResource;
 import com.softwaredeveloper.concurso.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

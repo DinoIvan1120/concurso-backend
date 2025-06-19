@@ -1,12 +1,10 @@
 package com.softwaredeveloper.concurso.localizations.api;
 
 import com.softwaredeveloper.concurso.localizations.domain.model.entity.City;
-import com.softwaredeveloper.concurso.localizations.domain.model.entity.Country;
 import com.softwaredeveloper.concurso.localizations.domain.service.CityService;
-import com.softwaredeveloper.concurso.localizations.domain.service.CountryService;
-import com.softwaredeveloper.concurso.localizations.dto.*;
+import com.softwaredeveloper.concurso.localizations.dto.city.CityResource;
+import com.softwaredeveloper.concurso.localizations.dto.city.CreateCityResource;
 import com.softwaredeveloper.concurso.localizations.mapping.CityMapper;
-import com.softwaredeveloper.concurso.localizations.mapping.CountryMapper;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -34,8 +32,7 @@ public class CityController {
     }
 
     @GetMapping("/list")
-    public List<CityResource> getAll(){return mapper.toResource(cityService.getAllCities());}
-
+    public List<CityResource>getAll(){return mapper.toResource(cityService.getAllCities());}
 
     @GetMapping("/username/{username}")
     public CityResource getCityByUsername(@PathVariable String username){
@@ -60,15 +57,14 @@ public class CityController {
         return mapper.toResource(cityService.getById(cityId));
     }
 
-    @PostMapping
-    public ResponseEntity<CityResource >createCity(@Valid @RequestBody CreateCityResource resource){
-        CityResource cityResource = cityService.create(resource);
-        return new ResponseEntity<>(cityResource, HttpStatus.CREATED);
+    @PostMapping("/{countryId}")
+    public ResponseEntity<CityResource>createCity(@Valid @RequestBody CreateCityResource resource, @PathVariable Long countryId){
+        return new ResponseEntity<>(mapper.toResource(cityService.create(mapper.toModel(resource), countryId)) ,HttpStatus.CREATED);
     }
 
     @PutMapping("/{cityId}")
-    public CityResource updateCity(@PathVariable Long cityId, @RequestBody UpdateCityResource resource){
-        return mapper.toResource(cityService.update(cityId, mapper.toModel(resource)));
+    public ResponseEntity<CityResource>updateCity(@Valid @RequestBody CreateCityResource resource, @PathVariable Long cityId){
+        return new ResponseEntity<>(mapper.toResource(cityService.update(mapper.toModel(resource), cityId)) ,HttpStatus.OK);
     }
 
     @DeleteMapping("/{cityId}")

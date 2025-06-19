@@ -1,17 +1,14 @@
-package com.softwaredeveloper.concurso.localizations.dto;
+package com.softwaredeveloper.concurso.localizations.dto.city;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NonNull;
-import org.aspectj.bridge.IMessage;
 
 @Data
 public class CreateCityResource {
 
+    @NotNull(message = "El nombre de la ciudad es obligatorio")
     @Column(name = "city_name", nullable = false, length = 100)
     private String cityName;
 
-    @NotNull(message = "El id del pais es obligatorio")
-    private Long countryId;
 }

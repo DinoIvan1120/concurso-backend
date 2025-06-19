@@ -1,7 +1,9 @@
 package com.softwaredeveloper.concurso.localizations.mapping;
 
 import com.softwaredeveloper.concurso.localizations.domain.model.entity.City;
-import com.softwaredeveloper.concurso.localizations.dto.*;
+import com.softwaredeveloper.concurso.localizations.dto.city.CityResource;
+import com.softwaredeveloper.concurso.localizations.dto.city.CreateCityResource;
+import com.softwaredeveloper.concurso.localizations.dto.city.UpdateCityResource;
 import com.softwaredeveloper.concurso.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,14 +18,13 @@ public class CityMapper implements Serializable {
     @Autowired
     private EnhancedModelMapper mapper;
 
-    public CityResource toResource(City model){return mapper.map(model, CityResource.class);}
+    public CityResource toResource(City city){return mapper.map(city, CityResource.class);}
 
     public java.util.List<CityResource> toResource(java.util.List<City> model){
         return mapper.mapList(model, CityResource.class);
     }
 
-    public City toModel(CreateCityResource resource){return mapper.map(resource, City.class);
-    }
+    public City toModel(CreateCityResource resource){return mapper.map(resource, City.class);}
 
     public City toModel(UpdateCityResource resource){
         return mapper.map(resource, City.class);

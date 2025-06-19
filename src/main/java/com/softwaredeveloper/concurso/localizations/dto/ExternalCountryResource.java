@@ -3,9 +3,9 @@ package com.softwaredeveloper.concurso.localizations.dto;
 import lombok.Data;
 
 @Data
-public class CityResource {
+public class ExternalCountryResource {
 
     private Long id;
-    private String cityName;
-    private String countryName;
+    private String nombre;
+    private String code;
 }
